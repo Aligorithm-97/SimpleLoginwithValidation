@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Login Page</title>
+
+    <style>
+      .header {
+        font-size: 50px;
+        color: black;
+        text-align: center;
+      }
+
+      body {
+        text-align: left;
+      }
+      .loginbutton {
+        background-color: green;
+        color: white;
+        font-size: 20px;
+        width: 150px;
+        height: 50px;
+      }
+      #form {
+        background-color: whitesmoke;
+        margin-left: 750px;
+        margin-right: 750px;
+        margin-top: 50px;
+        padding: 20px;
+        padding-bottom: 100px;
+        padding-top: 100px;
+      }
+      #button {
+        width: 270px;
+        margin-left: 50px;
+      }
+      #message {
+        margin-left: 50px;
+        margin-right: 30px;
+        color: rgb(255, 0, 0);
+        font-size: 20px;
+        font-weight: bold;
+      }
+      #img {
+        width: 100px;
+        padding-left: 120px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2 class="header">Login Page</h2>
+    <form id="form">
+      <img
+        id="img"
+        src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/b666f811889067.562541eff3013.png"
+        alt="avatar"
+      />
+      <br /><br />
+      <br /><br />
+      <label style="margin-left: 50px; font-size: 18px">Username :</label>
+      <input
+        style="font-size: 20px"
+        size="15px"
+        id="username"
+        name="username"
+        type="text"
+        placeholder="Username"
+        required
+      />
+      <br /><br />
+      <br /><br />
+      <label style="margin-left: 50px; font-size: 19px">Password :</label>
+      <input
+        style="font-size: 20px"
+        size="15px"
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Password"
+        required
+      />
+      <br /><br />
+      <br /><br />
+      <button
+        class="loginbutton"
+        style="text-align: center"
+        id="button"
+        type="button"
+      >
+        Login
+      </button>
+      <br /><br />
+      <p id="message"></p>
+    </form>
+    <script>
+      var userArray = [
+        {
+          username: "alitemurtaş",
+          password: "şifre123%",
+        },
+        {
+          username: "walterwhite",
+          password: "ankara06!",
+        },
+        {
+          username: "loginpage",
+          password: "pagelogin0#",
+        },
+      ];
+
+      function login() { // Login function compares with the incoming username and password values with array's username and password values.
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let currentUser = userArray.filter(
+          (user) => user.username == username && user.password == password
+        );
+        currentUser.length ? (location.href = "./dice.html") : validate();
+      }
+
+      function validate() { // Validate function checks all the desired circumstances for both username and password and returns a warning message for user.
+        let x = document.getElementById("username").value;
+        let y = document.getElementById("password").value;
+        var rule = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+        if (x.length == 0 || y.length == 0) {
+          document.getElementById("message").innerHTML =
+            "Warning : Please fill all the blanks!";
+          return false;
+        } else if (x.length < 6 || y.length < 6) {
+          document.getElementById("message").innerHTML =
+            "Warning : Username and Password should be longer than 6 characters!";
+          return false;
+        } else if (x.length > 16 || y.length > 16) {
+          document.getElementById("message").innerHTML =
+            "Warning : Username and Password should be shorter than 16 characters!";
+          return false;
+        } else if (y.search(/[a-zA-Z]/) == -1) {
+          document.getElementById("message").innerHTML =
+            "Warning : Password should include at least one letter!";
+          return false;
+        } else if (!rule.test(y)) {
+          document.getElementById("message").innerHTML =
+            "Warning : Password should contain at least one number and one special character. One of them is missing right now!";
+          return false;
+        }
+        document.getElementById("message").innerHTML =
+          "Warning : Wrong username or password!";
+        return true;
+      }
+
+      const button = document.getElementById("button");
+      button.addEventListener("click", () => {
+        login();
+      });
+    </script>
+  </body>
+</html>
